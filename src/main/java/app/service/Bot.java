@@ -5,22 +5,21 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Service;
 
 import javax.security.auth.login.LoginException;
 
 @Service
-public class Bot implements DiscordBot{
+public class Bot implements DiscordBot, ApplicationRunner {
 
-    private String SECRET_TOKEN = "Nzc4NzQ4MjUxMTkyMjk1NDQ0.X7Wf0w.jA-4Y2vl6rMsFYP4PPz02Wk2goo";
-
-    @Autowired
-    private MessageReaction messageReaction;
+    private String SECRET_TOKEN = "NOPE";
 
     public Bot() {
         try {
-            JDABuilder.createLight("Nzc4NzQ4MjUxMTkyMjk1NDQ0.X7Wf0w.jA-4Y2vl6rMsFYP4PPz02Wk2goo", GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES)
-                    .addEventListeners(messageReaction)
+            JDABuilder.createLight(SECRET_TOKEN, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES)
+                    .addEventListeners(new MessageReaction())
                     .setActivity(Activity.playing("Rough Bingo BBC"))
                     .build();
         } catch (LoginException e) {
@@ -38,4 +37,8 @@ public class Bot implements DiscordBot{
         }
     }
 
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+
+    }
 }

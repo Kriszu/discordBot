@@ -1,10 +1,12 @@
 package app.model;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "discordUser")
-public class DiscordUser {
+public class DiscordUser implements Comparable<DiscordUser> {
 
     @Id
     @Column(name = "user_dbId")
@@ -16,6 +18,18 @@ public class DiscordUser {
     private BingoGame bingoGame;
 
     private Long userId;
+
+    private String name;
+
+    private int rankPoints;
+
+    public int getRankPoints() {
+        return rankPoints;
+    }
+
+    public void setRankPoints(int rankPoints) {
+        this.rankPoints = rankPoints;
+    }
 
     public BingoGame getBingoGame() {
         return bingoGame;
@@ -34,5 +48,24 @@ public class DiscordUser {
     }
 
     public DiscordUser() {
+    }
+
+
+    @Override
+    public int compareTo(@NotNull DiscordUser o) {
+        if(rankPoints > o.getRankPoints()){
+            return 1;
+        } else if(rankPoints == o.getRankPoints()){
+            return 0;
+        }
+        return -1;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

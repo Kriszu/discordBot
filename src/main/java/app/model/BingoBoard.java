@@ -11,6 +11,7 @@ public class BingoBoard {
     @Column(name = "bingoGame_id")
     private Long id;
 
+    @Lob
     @Column(name = "bingoBoard")
     private String[][] bingoBoard;
 
